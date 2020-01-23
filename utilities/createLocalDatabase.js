@@ -1,15 +1,15 @@
-const pgtools = require('pgtools');
+const pgtools = require("pgtools");
 
 // An object with user, host, port, and password properties;
 const config = {
-  user: 'patrick',
-  host: 'localhost',
+  user: "patrick",
+  host: "localhost",
   port: 5432,
-  password: "Getting Started"
+  password: "Getting started"
 };
 
 // The name of the database to create;
-const databaseName = require('./databaseName');
+const databaseName = require("./databaseName");
 
 // A callback that takes an error argument;
 // If cb is omitted the function will return a Promise;
@@ -23,7 +23,7 @@ const cb = (err, res) => {
 
   console.log(res);
   console.log(`Successfully created the database: ${databaseName}!`);
-}
+};
 
 const createLocalDatabase = () => pgtools.createdb(config, databaseName, cb);
 
