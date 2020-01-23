@@ -35,6 +35,8 @@ const arrayRotate = (arr, count) => {
 // emits to to next user it's their turn
 const emitter = (io, socket, users, userMap) => {};
 
+const port = process.env.PORT || "1234";
+
 module.exports = io => {
   // execute whenever a new socket connects
   io.on("connection", socket => {
@@ -43,10 +45,14 @@ module.exports = io => {
     console.log("New client connected");
 
     if (users.length === 1) {
-      axios.get("http://localhost:1234/api/users/generateWord").then(res => {
-        currWord = res.data;
-        io.to(users[0]).emit("turn", res.data);
-      });
+      axios
+        .get(
+          `https://realtime-drawing-nnaqi5534.herokuapp.com/api/users/generateWord`
+        )
+        .then(res => {
+          currWord = res.data;
+          io.to(users[0]).emit("turn", res.data);
+        });
     }
 
     // get new client's token and associate it with socket id
@@ -107,10 +113,14 @@ module.exports = io => {
 
         currNumOfTurns = 0;
       } else {
-        axios.get("http://localhost:1234/api/users/generateWord").then(res => {
-          currWord = res.data;
-          io.to(users[0]).emit("turn", res.data);
-        });
+        axios
+          .get(
+            `https://realtime-drawing-nnaqi5534.herokuapp.com/api/users/generateWord`
+          )
+          .then(res => {
+            currWord = res.data;
+            io.to(users[0]).emit("turn", res.data);
+          });
       }
     });
     // event for new clients to receive drawings already in progress

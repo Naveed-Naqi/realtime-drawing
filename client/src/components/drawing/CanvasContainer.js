@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
 import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Timer from "./Timer";
@@ -35,6 +35,8 @@ class CanvasContainer extends Component {
     };
   }
 
+  socket = io(window.location.origin);
+
   isPainting = false;
 
   line = [];
@@ -42,12 +44,12 @@ class CanvasContainer extends Component {
   prevPos = { offsetX: 0, offsetY: 0 };
 
   prevPos = { offsetX: 0, offsetY: 0 };
-  port = process.env.PORT || "12334";
-  socket = socketIOClient(`http://54.196.177.179:${this.port}`);
+  // port = process.env.PORT || "4321";
+
+  //socketIOClient(window.location.origin);
 
   componentDidMount() {
     // Here we set up the properties of the canvas element.
-
     let ctx = this.refs.canvas.getContext("2d");
 
     ctx.lineJoin = "round";
